@@ -154,4 +154,4 @@ if __name__ == "__main__":
     vse = VidSrcExtractor(source_name =SUPPORTED_SOURCES[0] ,
         fetch_subtitles = True,)
     
-    app.run(debug=True)
+    app.run()

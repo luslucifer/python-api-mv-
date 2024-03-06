@@ -127,8 +127,7 @@ with open('introduction.txt','r') as file :
 @app.route('/')
 def home():
     
-    return jsonify({'message':f"MR K's project }"})
-
+    return doc
 
 @app.route('/anime/<id>/<ep>/<type>')
 def Anime(id,type,ep):

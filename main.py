@@ -1,16 +1,13 @@
 import os
-import argparse
 import requests
-import questionary
-
 from bs4 import BeautifulSoup
 from urllib.parse import unquote
 from typing import Optional, Tuple, Dict, List
-
 from sources.vidplay import VidplayExtractor
 from sources.filemoon import FilemoonExtractor
 from utils import Utilities, VidSrcError, NoSourcesFound
-from flask import Flask,jsonify,request
+from flask import Flask,jsonify
+from tinydb import TinyDB,Query
 
 SUPPORTED_SOURCES = ["Vidplay", "Filemoon"]
 
@@ -121,12 +118,23 @@ class VidSrcExtractor:
 
         return results
 
+db = TinyDB('idDb.json')
+q = Query()
 app = Flask(__name__)
-
-@app.route('/<name>')
-def home(name):
+domain = 'https://consumet-api-hp98.onrender.com/anime/gogoanime/watch/'
+@app.route('/')
+def home():
     
-    return jsonify({'message':"this is home page "})
+    return jsonify({'message':"MR K project  "})
+
+
+@app.route('/anime/<id>/<ep>/<type>')
+def Anime(id,type,ep):
+    obj = db.search((q.id2==id)&(q.type==type))
+    res = requests.get(domain+obj[0]['id']+f'-episode-{ep}').json()
+    return jsonify(res['sources'])
+    # return jsonify({'name':obj[0][id]})
+    
 
 @app.route('/movie/<tmdb>')
 def Movie(tmdb):

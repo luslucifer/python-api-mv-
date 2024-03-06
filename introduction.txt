@@ -1,0 +1,123 @@
+# Multimedia API Comprehensive Documentation 🚀
+
+Welcome to the Multimedia API – Your Ultimate Source for Anime, Movies, and TV Shows! 🌟
+
+## Base URL
+
+- **Base URL:** [https://python-api-mv.onrender.com](https://python-api-mv.onrender.com)
+
+## Anime Wonders ✨
+
+### Get Anime Episode Details
+
+Embark on a thrilling anime journey tailored just for you! Retrieve details for a specific anime episode by providing its AniList ID, episode number, type, and choose between sub or dub.
+
+- **Endpoint:**
+  ```
+  GET /anime/<anilist_id>/<ep>/<type>/<sub_or_dub>
+  ```
+
+- **Parameters:**
+  - `anilist_id`: AniList ID
+  - `ep`: Episode number
+  - `type`: Type of anime
+  - `sub_or_dub`: Subtitle or Dub (customize your experience!)
+
+- **Example:**
+  ```
+  GET /anime/123456/1/sub
+  ```
+
+- **Response:**
+  ```json
+  {
+    "sources": [
+      "https://example.com/source1",
+      "https://example.com/source2",
+      // ... (Other sources)
+    ]
+  }
+  ```
+
+  Your passport to an anime wonderland! 🍿
+
+## Movie Magic 🎬
+
+### Get Movie Details
+
+Discover the magic of movies with just a few clicks! Retrieve details for a specific movie by providing its IMDb ID.
+
+- **Endpoint:**
+  ```
+  GET /movie/<imdb_id>
+  ```
+
+- **Example:**
+  ```
+  GET /movie/tt4154796
+  ```
+
+- **Response:**
+  ```json
+  {
+    "m3u8": ["..."],
+    "sub": {
+      "Arabic": "...",
+      "Bengali": "...",
+      // ... (Other subtitle languages)
+    }
+  }
+  ```
+
+  Your VIP access to movie marvels! 🎥
+
+## TV Show Spectacle 📺
+
+### Get TV Show Details
+
+Experience the excitement of TV shows with detailed information on specific episodes. Provide the series ID, season number, and episode number to unlock the magic!
+
+- **Endpoint:**
+  ```
+  GET /tv/<series_id>/<season_number>/<episode_number>
+  ```
+
+- **Example:**
+  ```
+  GET /tv/1399/1/1
+  ```
+
+- **Response:**
+  ```json
+  {
+    "m3u8": ["..."],
+    "sub": {
+      "Arabic": "...",
+      "French": "...",
+      // ... (Other subtitle languages)
+    }
+  }
+  ```
+
+  Your front-row ticket to TV show greatness! 📡
+
+## Subtitle & Dub Extravaganza 🌈
+
+Immerse yourself in the language of your choice – whether through subtitles or dubbing! The API supports a variety of languages, creating a truly global experience.
+
+- **Subtitle Languages:**
+  - Arabic, Bengali, Brazillian Portuguese, and many more!
+
+- **Subtitle URL Format:**
+  ```
+  https://s3.bunnycdn.ru/sub/cache3/subtitle/12345678.vtt
+  ```
+
+- **Dub URL Format:**
+  ```
+  https://dub.example.com/dubbed/12345678.mp3
+  ```
+
+  Your multimedia adventure, your way! 🌟
+
+Ready to explore the limitless possibilities of the Multimedia API? Dive in and let the magic unfold! 🚀

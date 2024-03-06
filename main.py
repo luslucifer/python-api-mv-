@@ -122,10 +122,12 @@ db = TinyDB('idDb.json')
 q = Query()
 app = Flask(__name__)
 domain = 'https://consumet-api-hp98.onrender.com/anime/gogoanime/watch/'
+with open('introduction.txt','r') as file :
+    doc = file.read()
 @app.route('/')
 def home():
     
-    return jsonify({'message':"MR K project  "})
+    return jsonify({'message':f"MR K's project }"})
 
 
 @app.route('/anime/<id>/<ep>/<type>')

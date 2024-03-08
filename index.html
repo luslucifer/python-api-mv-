@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multimedia API Documentation </title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+
+    h2 {
+      color: #555;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #777;
+    }
+
+    code {
+      background-color: #f0f0f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      cursor: pointer;
+      user-select: all;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    .endpoint-example {
+      margin: 10px 0;
+    }
+
+    .response-example {
+      margin-top: 10px;
+    }
+
+    .subtitle-languages,
+    .dub-languages {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .subtitle-languages li,
+    .dub-languages li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Multimedia API Documentation || MR K 🎬🌟🚀</h1>
+
+  <section id="base-url">
+    <h2>Base URL</h2>
+    <p><strong>Base URL:</strong> <a href="https://www.moviekex.online/">https://www.moviekex.online/</a></p>
+  </section>
+
+  <section id="movie-tv-show">
+    <h2>Movie and TV Show Magic 🍿✨</h2>
+
+    <section id="movie-details">
+      <h3>Get Movie Details</h3>
+      <pre>
+        <code class="copyable">GET https://www.moviekex.online/movie/{imdb_id}</code>
+      </pre>
+
+      <div class="endpoint-example">
+        <p><strong>Example:</strong> <code class="copyable">GET https://www.moviekex.online/movie/tt4154796</code></p>
+      </div>
+
+      <div class="response-example">
+        <p><strong>Response:</strong></p>
+        <pre>
+          <code class="copyable">
+          {
+            "m3u8": [
+              "https://example.com/source1",
+              "https://example.com/source2",
+              // ... (Other sources)
+            ],
+            "sub": {
+              "Arabic": "https://s3.bunnycdn.ru/sub/cache3/subtitle/13397690.vtt",
+              "Bengali": "https://s3.bunnycdn.ru/sub/cache3/subtitle/13398347.vtt",
+              // ... (Other subtitle languages)
+            }
+          }
+          </code>
+        </pre>
+      </div>
+    </section>
+
+    <section id="tv-show-details">
+      <h3>Get TV Show Details</h3>
+      <pre>
+        <code class="copyable">GET https://www.moviekex.online/tv/{series_id}/{season_number}/{episode_number}</code>
+      </pre>
+
+      <div class="endpoint-example">
+        <p><strong>Example:</strong> <code class="copyable">GET https://www.moviekex.online/tv/1399/1/1</code></p>
+      </div>
+
+      <div class="response-example">
+        <p><strong>Response:</strong></p>
+        <pre>
+          <code class="copyable">
+          {
+            "m3u8": [
+              "https://example.com/source1",
+              "https://example.com/source2",
+              // ... (Other sources)
+            ],
+            "sub": {
+              "Arabic": "https://s3.bunnycdn.ru/sub/cache3/subtitle/13823652.vtt",
+              "French": "https://s3.bunnycdn.ru/sub/cache3/subtitle/13823660.vtt",
+              // ... (Other subtitle languages)
+            }
+          }
+          </code>
+        </pre>
+      </div>
+    </section>
+  </section>
+
+  <section id="anime-bliss">
+    <h2>Anime Bliss 🌟🍿</h2>
+
+    <section id="anime-episode-details">
+      <h3>Get Anime Episode Details</h3>
+      <pre>
+        <code class="copyable">GET https://www.moviekex.online/anime/{Anilist_id}/{Episode_No}/{SubOrDub}</code>
+      </pre>
+
+      <div class="endpoint-example">
+        <p><strong>Example:</strong> <code class="copyable">GET https://www.moviekex.online/anime/123456/1/sub</code></p>
+      </div>
+
+      <div class="response-example">
+        <p><strong>Response:</strong></p>
+        <pre>
+          <code class="copyable">
+          {
+            "sources": [
+              "https://example.com/source1",
+              "https://example.com/source2",
+              // ... (Other sources)
+            ]
+          }
+          </code>
+        </pre>
+      </div>
+    </section>
+  </section>
+
+  <section id="subtitle-dub">
+    <h2>Subtitle & Dub Extravaganza 🌈</h2>
+
+    <div class="subtitle-languages">
+      <h3>Languages for Subtitles:</h3>
+      <ul>
+        <li>Arabic</li>
+        <li>english</li>
+        <!-- ... (Other subtitle languages) -->
+      </ul>
+    </div>
+
+    <div class="dub-languages">
+      <h3>Languages for Dubbing:</h3>
+      <ul>
+        <li>Arabic</li>
+        <li>english</li>
+        <!-- ... (Other dub languages) -->
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>Your multimedia, your language, your adventure! 🌈🌟🍿</p>
+    <p>Ready to embark on your multimedia journey? Dive in and explore the Multimedia API! 🚀🌟🍿</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.copyable').forEach(function (codeElement) {
+      codeElement.addEventListener('click', function () {
+        const codeToCopy = codeElement.innerText.replace('GET','');
+
+        const tempInput = document.createElement('input');
+        document.body.appendChild(tempInput);
+        tempInput.value = codeToCopy;
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        alert('Code copied to clipboard: ' + codeToCopy);
+      });
+    });
+  </script>
+
+</body>
+
+</html>

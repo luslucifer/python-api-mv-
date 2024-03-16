@@ -88,35 +88,44 @@ class VidsrcMeExtractor:
         
         return None
     
-app = Flask(__name__)
 db = TinyDB('idDb.json')
-domain = 
+q = Query()
+app = Flask(__name__)
+domain = 'https://consumet-api-hp98.onrender.com/anime/gogoanime/watch/'
+with open('index.html','r') as file :
+    doc = file.read()
+@app.route('/')
+def home():
     
+    return doc
+
 @app.route('/anime/<id>/<ep>/<type>')
 def Anime(id,type,ep):
     obj = db.search((q.id2==id)&(q.type==type))
     res = requests.get(domain+obj[0]['id']+f'-episode-{ep}').json()
     return jsonify(res['sources'])
+    # return jsonify({'name':obj[0][id]})
 
+@app.route('/movie/<tmdb>')
+def Movie(tmdb):
+    vse = VidsrcMeExtractor(source_name =SUPPORTED_SOURCES[0] ,
+        fetch_subtitles = True,)
+    obj = vse.get_streams(media_id=tmdb,season=None,episode=None)
+    obj['m3u8'] = obj['streams']
+    del obj['streams']
+    return obj
+
+@app.route('/tv/<tmdb>/<ss>/<ep>')
+def tv(tmdb,ss,ep):
+    vse = VidsrcMeExtractor(source_name =SUPPORTED_SOURCES[0] ,
+        fetch_subtitles = True,)
+    obj = vse.get_streams(media_id=tmdb,season=ss,episode=ep)
+    obj['m3u8'] = obj['streams']
+    del obj['streams']
+    return obj
 
 if __name__ == "__main__":
-    # default_language = "English"
-    # print("Supported sources -")
-    # for i, v in enumerate(SUPPORTED_SOURCES, start=1):
-    #     print(f"{i} - {v}")
+    host = os.environ.get('FLASK_RUN_HOST', '0.0.0.0')
+    port = int(os.environ.get('FLASK_RUN_PORT', 5000))
+    app.run(host=host, port=port, debug=True)
 
-    # source_index = (int(input("Select Source: ")) - 1) % len(SUPPORTED_SOURCES)
-    # media_id = input("Input imdb/tmdb code: ")
-
-    vse = VidsrcMeExtractor(
-        source_name=SUPPORTED_SOURCES[0],
-        fetch_subtitles=True
-    )
-
-    stream_data = vse.get_streams(
-        media_id=123,
-        season=None,
-        episode=None
-    )
-
-    # print(stream_data)

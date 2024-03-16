@@ -1,13 +1,13 @@
 import os
 import requests
-
 from utils import Utilities
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from typing import Optional, Tuple, Dict
-
 from sources.superembed import MultiembedExtractor
 from sources.vidsrcpro import VidsrcStreamExtractor
+from flask import jsonify,Flask
+from tinydb import TinyDB,Query
 
 SUPPORTED_SOURCES = ["VidSrc PRO", "Superembed"]
 
@@ -87,6 +87,17 @@ class VidsrcMeExtractor:
             return extractor.resolve_source(url=source_url, referrer=source_url_referrer)
         
         return None
+    
+app = Flask(__name__)
+db = TinyDB('idDb.json')
+domain = 
+    
+@app.route('/anime/<id>/<ep>/<type>')
+def Anime(id,type,ep):
+    obj = db.search((q.id2==id)&(q.type==type))
+    res = requests.get(domain+obj[0]['id']+f'-episode-{ep}').json()
+    return jsonify(res['sources'])
+
 
 if __name__ == "__main__":
     # default_language = "English"

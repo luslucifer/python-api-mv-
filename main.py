@@ -2,7 +2,7 @@ import os
 import argparse
 import requests
 import questionary
-from flask import Flask, jsonify
+from flask import Flask, jsonify,Response,request
 from bs4 import BeautifulSoup
 from urllib.parse import unquote
 from typing import Optional, Tuple, Dict, List
@@ -10,6 +10,10 @@ from tinydb import TinyDB,Query
 from sources.vidplay import VidplayExtractor
 from sources.filemoon import FilemoonExtractor
 from utils import Utilities, VidSrcError, NoSourcesFound
+import httpx
+import urllib.parse
+
+
 
 SUPPORTED_SOURCES = ["Vidplay", "Filemoon"]
 
@@ -139,13 +143,16 @@ def Anime(id,type,ep):
     # return jsonify({'name':obj[0][id]})
     
 
+import tempfile
+
+pr_url = 'https://mr-k-proxy.onrender.com/m3u8-proxy?'
+
 @app.route('/movie/<tmdb>')
 def Movie(tmdb):
-    vse = VidSrcExtractor(source_name =SUPPORTED_SOURCES[0] ,
-        fetch_subtitles = True,)
-    m3u8,sub = vse.get_streams('movie',tmdb,None,None)
-    modified_m3u8 = [   m3.replace('#.mp4','') for m3 in m3u8 ]
-    obj = {'m3u8':modified_m3u8,'sub':sub}
+    vse = VidSrcExtractor(source_name=SUPPORTED_SOURCES[0], fetch_subtitles=True)
+    m3u8, sub = vse.get_streams('movie', tmdb, None, None)
+    # modified_m3u8 = [m3.replace('#.mp4','') for m3 in m3u8 ]
+    obj = {'m3u8':m3u8, 'sub': sub}
     return jsonify(obj)
 
 @app.route('/tv/<tmdb>/<ss>/<ep>')
@@ -156,10 +163,13 @@ def Tv(tmdb,ss,ep):
     modified_m3u8 = [   m3.replace('#.mp4','') for m3 in m3u8 ]
     obj = {'m3u8':modified_m3u8,'sub':sub}
     return jsonify(obj)
-
-    # return jsonify(obj)
-
     
+@app.route('/proxy/<path:url>')
+def pr(url):
+    real_url = url.replace(request.host_url+'proxy/','https://')
+    real_url = 'https://'+real_url
+    response = requests.get(real_url, headers={'Referer': 'https://vidsrc.to'})
+    return response.content
 
 if __name__ == "__main__":
     vse = VidSrcExtractor(source_name =SUPPORTED_SOURCES[0] ,
@@ -169,4 +179,4 @@ if __name__ == "__main__":
     host = os.environ.get('FLASK_RUN_HOST', '0.0.0.0')
     port = int(os.environ.get('FLASK_RUN_PORT', 5000))
 
-    app.run(host=host, port=port, debug=False)
+    app.run(host=host, port=port, debug=True)

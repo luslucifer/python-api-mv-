@@ -170,3 +170,5 @@ if __name__ == "__main__":
     port = int(os.environ.get('FLASK_RUN_PORT', 5000))
 
     app.run(host=host, port=port, debug=False)
+
+    #fuck u

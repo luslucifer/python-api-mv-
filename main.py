@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 from typing import Optional, Tuple, Dict
 from sources.superembed import MultiembedExtractor
 from sources.vidsrcpro import VidsrcStreamExtractor
-from flask import jsonify,Flask
+from flask import jsonify,Flask,render_template
 from tinydb import TinyDB,Query
 
 SUPPORTED_SOURCES = ["VidSrc PRO", "Superembed"]
@@ -123,6 +123,28 @@ def tv(tmdb,ss,ep):
     obj['m3u8'] = obj['streams']
     del obj['streams']
     return obj
+@app.route('/embeded/tv/<tmdb>/<ss>/<ep>')
+def em_tv(tmdb,ss,ep):
+    vse = VidsrcMeExtractor(source_name =SUPPORTED_SOURCES[0] ,
+        fetch_subtitles = True,)
+    obj = vse.get_streams(media_id=tmdb,season=ss,episode=ep)
+    return render_template('p.html',m3u8=obj)
+
+@app.route('/embeded/movie/<tmdb>')
+def em_Movie(tmdb):
+    vse = VidsrcMeExtractor(source_name =SUPPORTED_SOURCES[0] ,
+        fetch_subtitles = True,)
+    obj = vse.get_streams(media_id=tmdb,season=None,episode=None)
+    
+    return render_template('p.html',m3u8=obj)
+
+@app.route('/embeded/anime/<id>/<ep>/<type>')
+def em_Anime(id,type,ep):
+    obj = db.search((q.id2==id)&(q.type==type))
+    res = requests.get(domain+obj[0]['id']+f'-episode-{ep}').json()
+    return render_template('p2.html' , obj= res)
+    # return jsonify({'name':obj[0][id]})
+
 
 if __name__ == "__main__":
     host = os.environ.get('FLASK_RUN_HOST', '0.0.0.0')

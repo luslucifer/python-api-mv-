@@ -91,7 +91,8 @@ class VidsrcMeExtractor:
 db = TinyDB('idDb.json')
 q = Query()
 app = Flask(__name__)
-domain = 'https://consumet-api-hp98.onrender.com/anime/gogoanime/watch/'
+# domain = 'https://consumet-api-hp98.onrender.com/anime/gogoanime/watch/'
+domain = 'https://consument-theta.vercel.app/anime/gogoanime/watch/'
 with open('index.html','r') as file :
     doc = file.read()
 @app.route('/')

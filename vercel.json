@@ -1,5 +1,4 @@
 {
-    "version": 2,
     "builds": [
       {
         "src": "main.py",
@@ -7,22 +6,9 @@
       }
     ],
     "routes": [
-      { "src": "/api/(.*)", "dest": "main.py" },
-      { "src": "/(.*)", "dest": "/$1" }
-    ],
-    "static": {
-      "source": "/",
-      "dest": "/"
-    },
-    "files": [
-      "index.html",
-      "introduction.txt",
-      "vercel.json",
-      "idDb.json",
-      "requirements.txt",
-      "utils.py",
-      "templates/p.html",
-      "templates/p2.html"
+      {
+        "src": "/(.*)",
+        "dest": "main.py"
+      }
     ]
   }
-  
